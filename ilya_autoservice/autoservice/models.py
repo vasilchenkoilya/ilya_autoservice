@@ -30,7 +30,7 @@ class PartService(models.Model):
         verbose_name_plural = _("part services")
     
     def __str__(self):
-        return f'{self.name} - {self.price}'
+        return f'{self.name} - price: {self.price} EUR.'
     
 
 class Car (models.Model):
@@ -40,9 +40,9 @@ class Car (models.Model):
         related_name="cars",
         on_delete=models.CASCADE
         )
-    customer = models.CharField(_("customer"), max_length=100, db_index=True)
+    customer = models.CharField(_("customer"), max_length=50, db_index=True)
     plate = models.CharField(_("plate"), max_length=10, db_index=True)
-    vin = models.CharField(_("vin"), max_length=17,db_index=True)
+    vin = models.CharField(_("vin"), max_length=17, db_index=True)
     color = models.CharField(_("color"), max_length=100, null=True, blank=True, db_index=True)
 
     class Meta:
@@ -102,6 +102,6 @@ class OrderLine(models.Model):
         ordering = ["-order", "-part_service", "-quantity"]
     
     def __str__(self):
-        return f'{self.order} - {self.part_service} - Quantity: {self.quantity} - Price: {self.price}'
+        return f'{self.order} /// {self.part_service} /// Quantity: {self.quantity} - Final price: {self.price} EUR'
 
 
