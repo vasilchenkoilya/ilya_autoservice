@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang = "en">
+<head>
+<meta charset = "UTF - 8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>{% block title %}Ilya Autoservice{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'css/base_style.css' %}">
+</head>
+<body>
+    <header>
+        <ul class="nav">
+            <li class="logo"><a href="{% url 'index' %}">Ilya Autoservice</a></li>
+            <li><a href="{% url 'index' %}">Brands</a></li>
+            <li><a href="{% url 'index' %}">Our Services</a></li>
+        </ul>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+    <footer>
+        <p>&copy; 2023 Ilya Autoservice</p>
+    </footer>
+</body>
+</html>

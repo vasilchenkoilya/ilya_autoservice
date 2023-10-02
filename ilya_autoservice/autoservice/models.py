@@ -5,9 +5,9 @@ import uuid
 
 # Create your models here.
 class CarModel (models.Model):
-    make = models.CharField(_("make"), max_length=100, db_index=True)
+    make = models.CharField(_("Brand"), max_length=100, db_index=True)
     model = models.CharField(_("model"), max_length=100, db_index=True)
-    year = models.IntegerField(_("year"))
+    year = models.IntegerField(_("year",), db_index=True)
 
     class Meta:
         verbose_name = _("car model")
@@ -19,18 +19,24 @@ class CarModel (models.Model):
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})
+    
 
 
 class PartService(models.Model):
     name = models.CharField(_("name"), max_length=100, db_index=True)
     price = models.DecimalField(_("price"), max_digits=10, decimal_places=2)
+    part_id = models.UUIDField(_("part id"), db_index=True, default=uuid.uuid4, editable=False)
 
     class Meta:
         verbose_name = _("part service")
         verbose_name_plural = _("part services")
+        ordering = ["-name"]
     
     def __str__(self):
         return f'{self.name} - price: {self.price} EUR.'
+    
+    def get_absolute_url(self):
+        return reverse("_detail", kwargs={"pk": self.pk})
     
 
 class Car (models.Model):
@@ -52,6 +58,9 @@ class Car (models.Model):
 
     def __str__(self):
         return f'{self.customer} - {self.car_model}, Plate: {self.plate}.'
+    
+    def get_absolute_url(self):
+        return reverse("_detail", kwargs={"pk": self.pk})
 
 ORDER_STATUS = (
     (0, _('New')),
@@ -67,6 +76,7 @@ class ServiceOrder(models.Model):
         on_delete=models.CASCADE
     )
     date = models.DateField(_("date"), auto_now_add=True)
+    order_id = models.UUIDField(_("order id"), db_index=True, default=uuid.uuid4, editable=False)
     status = models.PositiveSmallIntegerField(
         _("status"), choices=ORDER_STATUS, default=0,
         )
@@ -78,6 +88,9 @@ class ServiceOrder(models.Model):
     
     def __str__(self):
         return f'{self.car} /// {self.date} /// Status: {self.get_status_display()}'
+    
+    def get_absolute_url(self):
+        return reverse("_detail", kwargs={"pk": self.pk})
 
 
 class OrderLine(models.Model):
@@ -103,5 +116,8 @@ class OrderLine(models.Model):
     
     def __str__(self):
         return f'{self.order} /// {self.part_service} /// Quantity: {self.quantity} - Final price: {self.price} EUR'
+    
+    def get_absolute_url(self):
+        return reverse("_detail", kwargs={"pk": self.pk})
 
 

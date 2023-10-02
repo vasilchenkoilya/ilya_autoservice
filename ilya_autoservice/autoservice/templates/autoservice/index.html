@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Welcome to{% endblock title %}
+{% block content %}
+    <h1> Welcome to Ilya Autoservice </h1>
+    <p>We servicing theese brands: </p>
+    <ul>
+        {% for brand in brands %}
+            <li>{{ brand }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Basic information</h2>
+    <ul>
+        <li>We are servicing: {{ num_orders }} cars right now.</li>
+        <li>Our average service price is: {{ average_service_price }} EUR.</li>
+        <li>AVergae age of cars we serviced: {{ cars_average_age }} years.</li>
+    </ul>
+{% endblock content %}
