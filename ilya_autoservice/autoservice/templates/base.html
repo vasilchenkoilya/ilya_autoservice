@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ilya's Auto Service{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'autoservice/base_style.css' %}">
+    <style></style>
+    <header>
+        <ul class="nav">
+            <li class="logo">SOme logo will be here</li>
+            <li><a href="{% url "index" %}">Home</a></li>
+            <li><a href="{% url "services" %}">Our Services</a></li>
+            <li><a href="{% url "Brands" %}">Brands</a></li>
+            <li class="spacer"></li>
+            {% if user.is_authenticated %}
+                {% if user.is_superuser or user.is_staff %}
+                <li><a href="{% url "admin:index" %}">Admin</a></li>
+                {% endif %}
+                <li><a href="{% url "logout" %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url "login" %}">Login</a></li>
+            {% endif %}
+        </ul>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+    <footer>
+        <p>&copy; 2023 Ilya Smart Solutions</p>
+    </footer>
+
+</head>
+<body>
+    {% block content %}
+    {% endblock content %}
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}My Services from {{ block.super }}{% endblock title %}
+{% block content %}
+<h1>My Services</h1>
+{% if object_list %}
+    <table class="nice-table">
+        <tr>
+            <th>Btand</th>
+            <th>Model</th>
+            <th>Service</th>
+            <th>Status</th>
+            <th>Date</th>
+        </tr>
+    {% for user in object_list %}
+        <tr class="data-row">
+            <td>{{ user.car.car_model.make}}</td>
+            <td>{{ user.car.car_model.model }}</td>
+            <td>{{ user.service.name }}</td>
+            <td>{{ user.get_status_display }}</td>
+            <td>{{ user.date }}</td>
+            <td><a href="{% url "service_detail" user.service.pk %}">{{ service.name }}</a></td>
+            <td>{{ user.order_id }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    {% with object_list as page_obj %}
+        {% include "autoservice/inc/pager_pages.html" %}
+    {% endwith %}
+{% else %}
+    <p>No Services found.</p>
+{% endif %}
+{% endblock content %}

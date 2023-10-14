@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Our Services {{ block.super }}{% endblock title %}
+{% block content %}
+<h1>Services we are offering:</h1>
+{% {% include "autoservice/inc/pager_prev_next.html" %}%}
+<ul class="service-list">
+    {% for service in service_list %}
+        <li><a href= "{% url "service_detail" service.pk %}">{{ service.name }}</a>
+        </li>
+        {% include "autoservice/inc/service_card.html" %}
+    {% empty %}
+        <p>No services found</p>
+    {% endfor %}
+</ul>
+{% include "autoservice/inc/pager_pages.html" %}
+{% endblock content %}

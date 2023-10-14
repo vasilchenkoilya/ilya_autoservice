@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{ service.name }} at {{ block.super }}{% endblock title %}
+{% block content %}
+<h1>{{ service.name }}</h1>
+{% if service.image %}
+    <img class="service-image" src="{{ service.image.url }}">
+{% else %}
+    <img class="service-image" src="{% static "img/default_image.png" %}">
+{% endif %}
+{% if service.description %}
+    <h2>About {{ service.name }}</h2>
+    <p>{{ service.description }}</p>
+{% endif %}
+{% endblock content %}

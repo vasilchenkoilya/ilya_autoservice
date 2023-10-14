@@ -1,0 +1,12 @@
+{% load static i18n %}
+<li class="center">
+    <a href="{% url "service_detail" service.pk %}">
+        {% if service.image %}
+            <img class="service-image" src="{{ service.image.url }}">
+        {% else %}
+            <img class="service-image" src="{% static "img/default_image.png" %}">
+        {% endif %}            
+        <h4>{{ service.name }}</h4>
+    </a> 
+    <p>{% trans "by" %} <a href="{% url "service_detail" service.name.pk %}">{{ service.name }}</a></p>
+</li>
